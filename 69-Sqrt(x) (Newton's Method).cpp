@@ -1,4 +1,4 @@
-//Neuton's Method
+//Newton's Method
 class Solution {
 public:
     int mySqrt(int x)
