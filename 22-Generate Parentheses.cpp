@@ -9,11 +9,8 @@ public:
         }
         if(left<0||right<left)
             return;
-        else
-        {
-            gen(paras,left-1,right,result+'(');
-            gen(paras,left,right-1,result+')');
-        }
+        gen(paras,left-1,right,result+'(');
+        gen(paras,left,right-1,result+')');
     }
     vector<string> generateParenthesis(int n)
     {

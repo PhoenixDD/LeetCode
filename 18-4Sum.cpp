@@ -1,40 +1,41 @@
 class Solution {
 public:
-    vector<vector<int>> fourSum(vector<int>& nums, int target)
+    vector<vector<int>> fourSum(vector<int>& nums, int &target)
     {
-        vector<vector<int>> result;
-        if(nums.empty()||nums.size()<4)
-            return result;
-        bool break_flag=false;
-        vector<int> temp(4);
+        if(nums.size()<4)
+            return {};
         sort(nums.begin(),nums.end());
+        vector<vector<int>> result;
+        int i,j;
         for(int l=0;l<nums.size()-3;l++)
         {
+            if(nums[l]>target&&target>=0)
+                return result;
             if(l!=0&&nums[l]==nums[l-1])
                 continue;
-            for(int i=l+1;i<nums.size()-2;i++)
+            for(int k=l+1;k<nums.size()-2;k++)
             {
-                if(i!=l+1&&nums[i]==nums[i-1])
+                if(nums[k]+nums[l]>target&&target>=0)
+                    break;
+                if(k!=l+1&&nums[k]==nums[k-1])
                     continue;
-                int j=i+1,k=nums.size()-1;
-                while(j<k)
+                i=k+1,j=nums.size()-1;
+                while(i<j)
                 {
                     if(nums[i]+nums[j]+nums[k]+nums[l]==target)
                     {
-                        temp[0]=nums[l];temp[1]=nums[i];temp[2]=nums[j];temp[3]=nums[k];
-                        result.push_back(temp);
-                        cout<<j<<" "<<k<<endl;
-                        while(j<k&&nums[j]==nums[j+1])
-                            j++;
-                        while(j<k&&nums[k]==nums[k-1])
-                            k--;
-                        j++;k--;
+                        result.push_back({nums[i],nums[j],nums[k],nums[l]});
+                        i++,j--;
+                        while(nums[i]==nums[i-1])
+                            i++;
+                        while(nums[j]==nums[j+1])
+                            j--;
                     }
                     else if(nums[i]+nums[j]+nums[k]+nums[l]<target)
-                        j++;
+                        i++;
                     else
-                        k--;
-                }
+                        j--;
+                }    
             }
         }
         return result;

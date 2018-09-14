@@ -2,72 +2,50 @@ class Solution {
 public:
     string intToRoman(int num)
     {
-        vector<string> roman(10);
-        roman[1]="I";roman[2]="II";roman[3]="III";roman[4]="IV";roman[5]="V";roman[6]="VI";roman[7]="VII";roman[8]="VIII";roman[9]="IX";
-        string result;
-        result.reserve(50);
-        int q,temp;
-        q=num/1000;
-        if(q>0)
+        string result="";
+        result.reserve(100);
+        int count;
+        count=num/1000;
+        if(count>0)
         {
-            temp=0;
-            while(temp++!=q)
-                result+="M";
-            num%=q*1000;
+            num%=count*1000;
+            while(count--)
+                result+='M';
         }
-        q=num/900;
-        if(q>0)
+        if(num>=900)
+            result+="CM",num%=900;
+        if(num>=500)
+            result+='D',num%=500;
+        if(num>=400)
+            result+="CD",num%=400;
+        count=num/100;
+        if(count>0)
         {
-            result+="CM";
-            num%=900;
+            num%=count*100;
+            while(count--)
+                result+='C';
         }
-        q=num/500;
-        if(q>0)
+        if(num>=90)
+            result+="XC",num%=90;
+        if(num>=50)
+            result+='L',num%=50;
+        if(num>=40)
+            result+="XL",num%=40;
+        count=num/10;
+        if(count>0)
         {
-            result+="D";
-            num%=500;
+            num%=count*10;
+            while(count--)
+                result+='X';
         }
-        q=num/400;
-        if(q>0)
-        {
-            result+="CD";
-            num%=400;
-        }
-        q=num/100;
-        if(q>0)
-        {
-            temp=0;
-            while(temp++!=q)
-                result+="C";
-            num%=q*100;
-        }
-        q=num/90;
-        if(q>0)
-        {
-            result+="XC";
-            num%=90;
-        }
-        q=num/50;
-        if(q>0)
-        {
-            result+="L";
-            num%=50;
-        }
-        q=num/40;
-        if(q>0)
-        {
-            result+="XL";
-            num%=40;
-        }
-        q=num/10;
-        if(q>0)
-        {
-            temp=0;
-            while(temp++!=q)
-                result+="X";
-            num%=q*10;
-        }
-        result+=roman[num%10];
+        if(num==9)
+            result+="IX",num=0;
+        if(num>=5)
+            result+='V',num%=5;
+        if(num==4)
+            result+="IV",num=0;
+        while(num--)
+            result+='I';
         return result;
     }
 };

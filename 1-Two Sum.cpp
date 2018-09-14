@@ -2,19 +2,16 @@ class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target)
     {
-        vector<int> result(2);
-        unordered_map<int,int> matches(nums.size());
+        unordered_map<int,int> occured(nums.size());
+        unordered_map<int,int>::const_iterator it;
         for(int i=0;i<nums.size();i++)
         {
-            if(matches.find(target-nums[i])!=matches.end())
-            {
-                result[0]=matches[target-nums[i]];
-                result[1]=i;
-                return result;
-            }
+            it=occured.find(target-nums[i]);
+            if(it==occured.end())
+                occured.insert(pair<int,int>(nums[i],i));
             else
-                matches[nums[i]]=i;
+                return {i,it->second};
         }
-        
+        return {};
     }
 };

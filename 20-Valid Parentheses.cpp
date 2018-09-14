@@ -12,9 +12,6 @@ public:
             else
                 bracks.pop();
         }
-        if(bracks.empty())
-            return true;
-        else
-            return false;
+        return bracks.empty();
     }
 };
