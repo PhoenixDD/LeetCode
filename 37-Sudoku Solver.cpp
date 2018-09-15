@@ -1,83 +1,59 @@
 class Solution {
 public:
-    bool valid(vector<vector<char>>& board,int i,int j,int num)
+    int part(int i,int j)
     {
-        for(int k=0;k<board.size();k++)
-        {
-            if(board[i][k]!='.'&&board[i][k]-'0'==num)
+        return (i/3)*3+(j/3);
+    }
+    bool isValid(vector<vector<char>>& board,int i,int j,int val)
+    {
+        for(int x=0;x<9;x++)
+            if(board[i][x]==val+'0'||board[x][j]==val+'0')
                 return false;
-            if(board[k][j]!='.'&&board[k][j]-'0'==num)
-                return false;
-        }
-        int part;
-        if(i/3==0&&j/3==0)
-            part=0;
-        else if(i/3==0&&j/3==1)
-            part=1;
-        else if(i/3==0&&j/3==2)
-            part=2;
-        else if(i/3==1&&j/3==0)
-            part=3;
-        else if(i/3==1&&j/3==1)
-            part=4;
-        else if(i/3==1&&j/3==2)
-            part=5;
-        else if(i/3==2&&j/3==0)
-            part=6;
-        else if(i/3==2&&j/3==1)
-            part=7;
-        else
-            part=8;
-        for(int m=part/3*3;m<part/3*3+3;m++)
-            for(int n=part%3*3;n<part%3*3+3;n++)
-                if(board[m][n]!='.'&&board[m][n]-'0'==num)
+        
+        for(int b=part(i,j)/3*3;b<part(i,j)/3*3+3;b++)
+            for(int c=part(i,j)%3*3;c<part(i,j)%3*3+3;c++)
+                if(board[b][c]==val+'0')
                     return false;
         return true;
     }
-    bool Solve(vector<vector<char>>& board,int i,int j)
+    bool solveSudoku(vector<vector<char>>& board,int i=0,int j=0) 
     {
         if(board[i][j]=='.')
-        {
-            for(int num=1;num<=board.size();num++)
+            for(int x=1;x<=9;x++)
             {
-                if(valid(board,i,j,num))
+                if(isValid(board,i,j,x))
                 {
-                    board[i][j]=num+'0';
-                    if(j==8&&i==8)
+                    board[i][j]=x+'0';
+                    if(i==8&&j==8)
                         return true;
-                    else if(j<8)
+                    if(j==8)
                     {
-                        if(Solve(board,i,j+1))
+                        if(solveSudoku(board,i+1,0))
                             return true;
                     }
-                    else if(j==8)
+                    else
                     {
-                        if(Solve(board,i+1,0))
+                        if(solveSudoku(board,i,j+1))
                             return true;
                     }
                     board[i][j]='.';
                 }
             }
-        }
         else
         {
-            if(j==8&&i==8)
+            if(i==8&&j==8)
                 return true;
-            else if(j<8)
+            if(j==8)
             {
-                if(Solve(board,i,j+1))
+                if(solveSudoku(board,i+1,0))
                     return true;
             }
-            else if(j==8)
+            else
             {
-                if(Solve(board,i+1,0))
-                        return true;
+                if(solveSudoku(board,i,j+1))
+                    return true;
             }
         }
         return false;
-    }
-    void solveSudoku(vector<vector<char>>& board)
-    {
-        Solve(board,0,0);
     }
 };

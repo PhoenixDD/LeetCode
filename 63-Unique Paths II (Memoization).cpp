@@ -13,14 +13,6 @@ public:
     }
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid)
     {
-        if(obstacleGrid.size()==1||obstacleGrid[0].size()==1)
-        {
-            for(auto &i:obstacleGrid)
-                for(int &j:i)
-                    if(j==1)
-                        return 0;
-            return 1;
-        }
         memo.resize(obstacleGrid.size(),vector<int>(obstacleGrid[0].size(),-1));
         return recur(obstacleGrid.size()-1,obstacleGrid[0].size()-1,obstacleGrid);
     }

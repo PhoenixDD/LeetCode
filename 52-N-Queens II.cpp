@@ -12,13 +12,11 @@ public:
     void backtrack(int r)
     {
         if(r==N)
-        {
             cnt++;
-            return;
-        }
-        for(int c=0;c<N;c++)
-            if(isvalid(r,c))
-                col[r]=c,backtrack(r+1);
+		else
+			for(int c=0;c<N;c++)
+				if(isvalid(r,c))
+					col[r]=c,backtrack(r+1);
     }
     int totalNQueens(int n)
     {
