@@ -24,7 +24,10 @@ public:
     void partition(string &s,int i,int j)
     {
         if(i==s.length())
-            result.push_back(temp);
+        {
+			result.push_back(temp);
+			return;
+		}
         for(int k=i;k<j;k++)
             if(pal_memo[i][k])
             {

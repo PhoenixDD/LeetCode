@@ -9,19 +9,18 @@
  */
 class Solution {
 public:
-    int maximum=INT_MIN;
-    int recur(TreeNode* root)
+    int Max=INT_MIN;
+    int maxPath(TreeNode* root)
     {
         if(!root)
             return 0;
-        int l=max(0,recur(root->left));
-        int r=max(0,recur(root->right));
-        maximum=max(maximum,l+r+root->val);
-        return root->val+max(l,r);
+        int left=max(0,maxPath(root->left)),right=max(0,maxPath(root->right));
+        Max=max(Max,root->val+left+right);
+        return root->val+max(left,right);
     }
     int maxPathSum(TreeNode* root) 
     {
-        recur(root);
-        return maximum;
+        maxPath(root);
+        return Max;
     }
 };

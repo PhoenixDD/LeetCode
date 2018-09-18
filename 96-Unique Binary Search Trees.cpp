@@ -1,19 +1,20 @@
 class Solution {
 public:
     vector<int> memo;
-    int numTrees(int n)
+    int num(int x)
     {
-        if(n==0||n==1)
+        if(x==1||x==0)
             return 1;
-        if(memo[n]!=-1)
-            return memo[n];
+        if(memo[x]!=-1)
+            return memo[x];
         int sum=0;
-        for(int i=0;i<n;i++)
-            sum+=numTrees(i)*numTrees(n-i-1);
-        return memo[n]=sum;
+        for(int i=1;i<=x;i++)
+            sum+=num(i-1)*num(x-i);
+        return memo[x]=sum;            
     }
-    Solution()
+    int numTrees(int n) 
     {
-        memo.resize(100,-1);
+        memo.resize(n+1,-1);
+        return num(n);
     }
 };

@@ -3,26 +3,26 @@ public:
     vector<vector<int>> result;
     vector<int> temp;
     int last=INT_MIN;
-    void recur(vector<int>& nums,int n)
+    void dup_sub(vector<int> &nums,int i)
     {
-        if(n==nums.size())
+        if(!i)
         {
             result.push_back(temp);
             return;
         }
-        if(last!=nums[n])
+        if(last!=nums[i-1])
         {
-            temp.push_back(nums[n]);
-            recur(nums,n+1);
+            temp.push_back(nums[i-1]);
+            dup_sub(nums,i-1);
             temp.pop_back();
-            last=nums[n];
+            last=nums[i-1];
         }
-        recur(nums,n+1);
+        dup_sub(nums,i-1);
     }
     vector<vector<int>> subsetsWithDup(vector<int>& nums)
     {
         sort(nums.begin(),nums.end());
-        recur(nums,0);
+        dup_sub(nums,nums.size());
         return result;
     }
 };

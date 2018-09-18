@@ -10,24 +10,22 @@
 class Solution {
 public:
     vector<vector<int>> result;
-    int max_d=0;
-    void levelOrder(TreeNode* root,int depth)
+    void levelOrder(TreeNode* root,int d)
     {
-        if(root)
-        {
-            max_d=depth>max_d?depth:max_d;
-            result[depth].push_back(root->val);
-            levelOrder(root->left,depth+1);
-            levelOrder(root->right,depth+1);
-        }
+        if(!root)
+            return;
+        if(result.size()==d)
+            result.push_back({root->val});
+        else
+            result[d].push_back(root->val);
+        levelOrder(root->left,d+1);
+        levelOrder(root->right,d+1);
     }
-    vector<vector<int>> levelOrder(TreeNode* root)
+    vector<vector<int>> levelOrder(TreeNode* root) 
     {
         if(!root)
             return {};
-        result.resize(1000);
         levelOrder(root,0);
-        result.resize(max_d+1);
         return result;
     }
 };

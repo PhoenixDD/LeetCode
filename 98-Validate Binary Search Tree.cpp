@@ -9,12 +9,12 @@
  */
 class Solution {
 public:
-    bool valid(TreeNode* root,TreeNode* less,TreeNode* more)
+    bool isValidBST(TreeNode* root,TreeNode* Min=NULL,TreeNode* Max=NULL) 
     {
-        return !root||((!less||root->val<less->val)&&(!more||root->val>more->val)&&valid(root->right,less,root)&&valid(root->left,root,more));
-    }
-    bool isValidBST(TreeNode* root)
-    {
-        return valid(root,NULL,NULL);
+        if(!root)
+            return true;
+        if(Min&&root->val<=Min->val||Max&&root->val>=Max->val)
+            return false;
+        return isValidBST(root->left,Min,root)&&isValidBST(root->right,root,Max);
     }
 };

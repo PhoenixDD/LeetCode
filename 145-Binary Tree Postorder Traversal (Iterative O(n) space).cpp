@@ -21,7 +21,7 @@ public:
             else if(s.top()->right&&s.top()->right!=popped)
                 latest=s.top()->right;
             else
-            popped=s.top(),s.pop(),result.push_back(popped->val),latest=NULL;
+            	popped=s.top(),s.pop(),result.push_back(popped->val),latest=NULL;
         }
         return result;
     }

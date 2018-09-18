@@ -8,36 +8,30 @@
  */
 class Solution {
 public:
-    RandomListNode *copyRandomList(RandomListNode *head)
+    RandomListNode *copyRandomList(RandomListNode *head) 
     {
-        if(!head)
-            return NULL;
-        RandomListNode *node=head;
-        while(node)
+        RandomListNode *temp=head,*copy,*temp2,*head2;
+        while(temp)
         {
-            RandomListNode *temp=new RandomListNode(node->label);
-            temp->next=node->next;
-            node->next=temp;
-            node=temp->next;
+            copy=new RandomListNode(temp->label);
+            copy->next=temp->next;
+            temp->next=copy;
+            temp=temp->next->next;
         }
-        node=head;
-        while(node)
+        temp=head;
+        while(temp)
         {
-            if(node->random)
-                node->next->random=node->random->next;
-            node=node->next->next;
+            temp->next->random=temp->random?temp->random->next:NULL;
+            temp=temp->next->next;
         }
-        node=head;
-        RandomListNode *node1=head->next,*node2=head->next;
-        while(node&&node1)
+        temp=head;
+        head2=temp2=head?head->next:NULL;
+        while(temp)
         {
-            if(node->next)
-                node->next=node->next->next;
-            if(node1->next)
-                node1->next=node1->next->next;
-            node=node->next;
-            node1=node1->next;
-        }            
-        return node2;
+            temp->next=temp->next->next;
+            temp2->next=temp2->next?temp2->next->next:NULL;
+            temp=temp->next,temp2=temp2->next;
+        }
+        return head2;
     }
 };

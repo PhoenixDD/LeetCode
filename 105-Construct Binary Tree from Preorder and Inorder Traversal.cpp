@@ -16,8 +16,6 @@ public:
         if(start>end)
             return NULL;
         TreeNode* node=new TreeNode(pre[pre_ind++]);
-        if(start==end)
-            return node;
         node->left=build(pre,in,start,indexes[node->val]-1);
         node->right=build(pre,in,indexes[node->val]+1,end);
         return node;
